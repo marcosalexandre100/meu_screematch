@@ -39,26 +39,20 @@ public class Principal {
            }
         System.out.println("Imprimindo todos os dados de todas temporadas e episodio");
         System.out.println(temporadas);
-
-       // temporadas.forEach(c-> c.episodio().forEach(d -> System.out.println(d.titulo())));
-
+        temporadas.forEach(System.out::println);
 
 
-
-
-        /*codigo abraçal
+   /*     System.out.println("Imprimindo todos os episodios de todas as temporadas com codigo abrassal");
 
         for(int i =0; i < dados.totalTemporadas(); i++) {
             List<DadosEpisodio> episodiosTemporada = temporadas.get(i).episodio();
             for(int j = 0; j<episodiosTemporada.size(); j++){
                 System.out.println(episodiosTemporada.get(j).titulo());
             }
-        } */
+        }*/
 
-        //  codigo em resumo
-        //  temporadas.forEach(t -> t.episodio().forEach(e -> System.out.println(e.titulo())));
-
-         //temporadas.forEach(System.out::println);
+        System.out.println("Imprimindo todos os episodios de todas as temporadas com forEach");
+        temporadas.forEach(t -> t.episodio().forEach(e -> System.out.println(e.titulo())));
 
 
 
@@ -92,6 +86,9 @@ public class Principal {
                 .flatMap(t -> t.episodio().stream()
                         .map(d -> new Episodio(t.numero(), d))
                 ).collect(Collectors.toList());
+
+
+        System.out.println("Imprimindo todos os episodios de todas as temporadas com forEach");
 
         episodios.forEach(System.out::println);
 
