@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Principal {
 
@@ -30,13 +31,23 @@ public class Principal {
            System.out.println(dados);
 
 
-           List<DadosTemporada> temporadas = new ArrayList<>();
+  /*     List<DadosTemporada> temporadas = new ArrayList<>();
 
-           for(int i = 1; i<=dados.totalTemporadas(); i++) {
-               json = consumo.obterDados(ENDERECO + nomeSerie.replace(" ", "+") +"&season=" + i + API_KEY);
-               DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
-               temporadas.add(dadosTemporada);
-           }
+        for(int i = 1; i<=dados.totalTemporadas(); i++) {
+            json = consumo.obterDados(ENDERECO + nomeSerie.replace(" ", "+") +"&season=" + i + API_KEY);
+            DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+            temporadas.add(dadosTemporada);
+        }*/ // outra forma de fazer a mesma coisa, mas com o uso do Stream API
+
+
+           List<DadosTemporada> temporadas = IntStream.rangeClosed(1, dados.totalTemporadas())
+                   .mapToObj(i -> {
+                       String jsonn = consumo.obterDados(ENDERECO + nomeSerie.replace(" ", "+") + "&season=" + i + API_KEY);
+                       return conversor.obterDados(jsonn, DadosTemporada.class);
+                   })
+                   .collect(Collectors.toList());
+
+
         System.out.println("Imprimindo todos os dados de todas temporadas e episodio");
         System.out.println(temporadas);
         temporadas.forEach(System.out::println);
